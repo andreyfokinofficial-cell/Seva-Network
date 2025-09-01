@@ -1,14 +1,16 @@
-
 services:
   - type: web
-    name: seva-v3
+    name: seva-network
     env: python
-    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn wsgi:application --bind 0.0.0.0:$PORT
+    plan: free
     envVars:
       - key: FLASK_SECRET_KEY
         generateValue: true
+      - key: DATABASE_PATH
+        value: /var/data/seva.db
+       
 
 databases:
   - name: seva-db
