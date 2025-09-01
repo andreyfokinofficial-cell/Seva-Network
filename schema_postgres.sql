@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS service_tags;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT,
     location TEXT,
@@ -15,15 +15,13 @@ CREATE TABLE users (
 );
 
 CREATE TABLE service_tags (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
     category TEXT
 );
 
 CREATE TABLE user_service_tags (
-    user_id INTEGER,
-    tag_id INTEGER,
-    PRIMARY KEY (user_id, tag_id),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (tag_id) REFERENCES service_tags(id) ON DELETE CASCADE
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    tag_id INTEGER REFERENCES service_tags(id) ON DELETE CASCADE,
+    PRIMARY KEY (user_id, tag_id)
 );

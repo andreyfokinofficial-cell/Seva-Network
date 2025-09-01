@@ -1,16 +1,20 @@
+
 services:
   - type: web
-    name: seva-network
+    name: seva-v3
     env: python
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn wsgi:application --bind 0.0.0.0:$PORT
-    plan: free
     envVars:
       - key: FLASK_SECRET_KEY
         generateValue: true
-      - key: DATABASE_PATH
-        value: /var/data/seva.db
-       
+      - key: TELEGRAM_BOT_TOKEN
+      - key: TELEGRAM_BOT_USERNAME
+      - key: DATABASE_URL
+        fromDatabase:
+          name: seva-db
+          property: connectionString
 
 databases:
   - name: seva-db
