@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="{{ session.get('lang','ru') }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ t('app_title') }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="{{ url_for('home') }}" class="logo">{{ t('app_title') }}</a>
+        <nav>
+          <a href="{{ url_for('people') }}">{{ t('people') }}</a>
+          <a href="{{ url_for('project_list') }}">{{ t('projects') }}</a>
+          <a href="{{ url_for('project_new') }}" class="btn">{{ t('new_project') }}</a>
+          <a href="{{ url_for('register') }}" class="btn">{{ t('create_profile') }}</a>
+          <div class="lang">
+            <span>{{ t('lang') }}:</span>
+            <a href="{{ url_for('set_lang', code='ru') }}">RU</a> ·
+            <a href="{{ url_for('set_lang', code='en') }}">EN</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="flash">
+            {% for m in messages %}<div class="flash-item">{{ m }}</div>{% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2025 Seva Network · MVP</p>
+        <p><a href="{{ url_for('init_route') }}">{{ t('reinit') }}</a></p>
+      </div>
+    </footer>
+  </body>
+</html>

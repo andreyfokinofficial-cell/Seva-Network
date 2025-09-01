@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<article class="profile">
+  <header>
+    <h1>{{ user['name'] }}</h1>
+    {% if user['location'] %}<p class="muted">📍 {{ user['location'] }}</p>{% endif %}
+  </header>
+  {% if user['bio'] %}<p>{{ user['bio'] }}</p>{% endif %}
+  <dl class="details">
+    {% if tags %}
+      <dt>{{ t('services') }}</dt>
+      <dd>
+        {% for tag in tags %}
+          <span class="chip">{{ tag['name'] }}</span>
+        {% endfor %}
+      </dd>
+    {% endif %}
+    {% if user['skills'] %}<dt>{{ t('skills') }}</dt><dd>{{ user['skills'] }}</dd>{% endif %}
+    {% if user['availability'] %}<dt>{{ t('availability') }}</dt><dd>{{ user['availability'] }}</dd>{% endif %}
+    <dt>{{ t('contacts') }}</dt>
+    <dd>
+      📧 {{ user['email'] }}
+      {% if user['telegram'] %} · 💬 <a href="https://t.me/{{ user['telegram'].lstrip('@') }}" target="_blank" rel="noopener">@{{ user['telegram'].lstrip('@') }}</a>{% endif %}
+      {% if user['website'] %} · 🌐 <a href="{{ user['website'] }}" target="_blank" rel="noopener">{{ user['website'] }}</a>{% endif %}
+    </dd>
+  </dl>
+  <p><a href="{{ url_for('people') }}">← {{ t('back_to_people') }}</a></p>
+</article>
+{% endblock %}

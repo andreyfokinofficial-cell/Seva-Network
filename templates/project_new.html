@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ t('create_project') }}</h1>
+<form method="post" class="form">
+  <label>{{ t('project_title') }}*<input name="title" value="{{ form.title if form else '' }}" required></label>
+  <label>{{ t('mission') }}<textarea name="mission" rows="4">{{ form.mission if form else '' }}</textarea></label>
+  <fieldset class="tags">
+    <legend>{{ t('services') }}</legend>
+    <div class="tags-grid">
+      {% for tag in tags %}
+        <label class="tag">
+          <input type="checkbox" name="service_tags" value="{{ tag['id'] }}">
+          <span>{{ tag['name'] }}</span>
+        </label>
+      {% endfor %}
+    </div>
+  </fieldset>
+  <label>{{ t('needs') }}<input name="needs" placeholder="дизайнер, монтажёр, переводчик / designer, editor, translator" value="{{ form.needs if form else '' }}"></label>
+  <label>{{ t('links') }}<input name="links" placeholder="https://..."></label>
+  <label>{{ t('owner_email') }}*<input type="email" name="owner_email" value="{{ form.owner_email if form else '' }}" required></label>
+  <div class="actions">
+    <button class="btn" type="submit">{{ t('save') }}</button>
+    <a class="btn-secondary" href="{{ url_for('project_list') }}">{{ t('cancel') }}</a>
+  </div>
+</form>
+{% endblock %}

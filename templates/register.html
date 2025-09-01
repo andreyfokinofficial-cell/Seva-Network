@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ t('create_profile') }}</h1>
+<form method="post" class="form">
+  <div class="grid">
+    <label>{{ t('name') }}*<input name="name" value="{{ form.name if form else '' }}" required></label>
+    <label>{{ t('email') }}*<input type="email" name="email" value="{{ form.email if form else '' }}" required></label>
+  </div>
+  <div class="grid">
+    <label>{{ t('location') }}<input name="location" placeholder="Город, страна / City, Country" value="{{ form.location if form else '' }}"></label>
+    <label>{{ t('telegram') }}<input name="telegram" placeholder="@username" value="{{ form.telegram if form else '' }}"></label>
+  </div>
+  <label>{{ t('website') }}<input name="website" placeholder="https://..." value="{{ form.website if form else '' }}"></label>
+  <label>{{ t('about') }}<textarea name="bio" rows="4" placeholder="Миссия, опыт, проекты / Mission, experience, projects">{{ form.bio if form else '' }}</textarea></label>
+  <fieldset class="tags">
+    <legend>{{ t('services') }}</legend>
+    <div class="tags-grid">
+      {% for tag in tags %}
+        <label class="tag">
+          <input type="checkbox" name="service_tags" value="{{ tag['id'] }}">
+          <span>{{ tag['name'] }}</span>
+        </label>
+      {% endfor %}
+    </div>
+  </fieldset>
+  <label>{{ t('skills') }}<textarea name="skills" rows="3" placeholder="инструменты, компетенции / tools, competencies">{{ form.skills if form else '' }}</textarea></label>
+  <label>{{ t('availability') }}<input name="availability" placeholder="вечера, выходные, удаленно / evenings, weekends, remote" value="{{ form.availability if form else '' }}"></label>
+  <div class="actions">
+    <button class="btn" type="submit">{{ t('save') }}</button>
+    <a class="btn-secondary" href="{{ url_for('home') }}">{{ t('cancel') }}</a>
+  </div>
+</form>
+{% endblock %}

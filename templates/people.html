@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ t('people') }}</h1>
+
+<form method="get" class="filter">
+  <input type="text" name="q" placeholder="{{ t('query') }}" value="{{ q }}">
+  <input type="text" name="location" placeholder="{{ t('location') }}" value="{{ location }}">
+  <details class="filter-tags">
+    <summary>{{ t('services') }}</summary>
+    <div class="tags-grid">
+      {% for tag in tags %}
+        <label class="tag">
+          <input type="checkbox" name="tag" value="{{ tag['id'] }}" {% if tag['id'] in tag_ids %}checked{% endif %}>
+          <span>{{ tag['name'] }}</span>
+        </label>
+      {% endfor %}
+    </div>
+  </details>
+  <button class="btn" type="submit">{{ t('find') }}</button>
+</form>
+
+{% if users %}
+<ul class="cards">
+  {% for u in users %}
+    <li class="card">
+      <h3><a href="{{ url_for('profile', user_id=u['id']) }}">{{ u['name'] }}</a></h3>
+      {% if u['location'] %}<p class="muted">📍 {{ u['location'] }}</p>{% endif %}
+      {% if u['services'] %}<p><strong>{{ t('services') }}:</strong> {{ u['services'] }}</p>{% endif %}
+      {% if u['skills'] %}<p>{{ u['skills'][:160] }}{% if u['skills']|length > 160 %}…{% endif %}</p>{% endif %}
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>{{ t('not_found') }}</p>
+{% endif %}
+{% endblock %}

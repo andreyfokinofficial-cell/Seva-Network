@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <h1>{{ t('hero_title') }}</h1>
+  <p>{{ t('hero_sub')|safe }}</p>
+  <div class="cta">
+    <a class="btn" href="{{ url_for('register') }}">{{ t('create_profile') }}</a>
+    <a class="btn-secondary" href="{{ url_for('people') }}">{{ t('browse_people') }}</a>
+  </div>
+</section>
+
+<section>
+  <h2>{{ t('how_it_works') }}</h2>
+  <ol class="steps">
+    <li>{{ t('step_profile')|safe }}</li>
+    <li>{{ t('step_search')|safe }}</li>
+    <li>{{ t('step_contact')|safe }}</li>
+  </ol>
+</section>
+{% endblock %}

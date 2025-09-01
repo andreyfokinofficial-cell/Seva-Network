@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ t('project_list') }}</h1>
+<p><a class="btn" href="{{ url_for('project_new') }}">{{ t('new_project') }}</a></p>
+{% if projects %}
+<ul class="cards">
+  {% for p in projects %}
+    <li class="card">
+      <h3><a href="{{ url_for('project_view', project_id=p['id']) }}">{{ p['title'] }}</a></h3>
+      {% if p['mission'] %}<p>{{ p['mission'][:180] }}{% if p['mission']|length>180 %}…{% endif %}</p>{% endif %}
+      <p class="muted">📧 {{ p['owner_email'] }}</p>
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Пока нет проектов. Создайте первый!</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: seva-network
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: FLASK_SECRET_KEY
+        generateValue: true
+      - key: DATABASE_PATH
+        value: /var/data/seva.db
+    disk:
+      name: data
+      mountPath: /var/data
+      sizeGB: 1
