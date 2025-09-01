@@ -10,9 +10,7 @@ services:
         generateValue: true
       - key: DATABASE_PATH
         value: /var/data/seva.db
-        fromDatabase:
-          name: seva-db
-          property: connectionString
+       
 
 databases:
   - name: seva-db
